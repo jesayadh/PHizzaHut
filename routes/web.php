@@ -32,3 +32,35 @@ Route::get('/home', function () {
 Route::get('/detail', function () {
     return view('pizza/detail');
 });
+
+Route::get('/cart', function () {
+    return view('pizza/cart');
+});
+
+Route::get('/history', function () {
+    return view('pizza/history');
+});
+
+Route::get('/detailt', function () {
+    return view('pizza/detailT');
+});
+
+Route::get('/detailt', function () {
+    return view('pizza/detailT');
+});
+
+Route::get('/add', function () {
+    return view('pizza/add');
+});
+
+Route::get('/edit', function () {
+    return view('pizza/edit');
+});
+
+Route::get('/user', function () {
+    return view('pizza/user');
+});
+
+Route::get('/historya', function () {
+    return view('pizza/historyA');
+});

@@ -7,7 +7,7 @@
             Register
         </div>
         <div class="card-body row justify-content-md-center">
-          <form action="/artikel" method="post" enctype="multipart/form-data">
+          <form action="/pizza" method="post" enctype="multipart/form-data">
             @csrf
     
             <x-input field="username" label="Username" type="text"/>
