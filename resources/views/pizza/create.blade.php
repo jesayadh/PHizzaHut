@@ -13,7 +13,8 @@
         <x-input field="name" label="Name" type="text"/>
         <x-input field="price" label="Price" type="text"/>
         <x-input field="description" label="Description" type="text"/>
-        {{-- <x-input field="image" label="image" type="text"/> --}}
+        <x-inputphoto />
+        
         <button type="submit" class="btn btn-primary">Add Pizza</button>
       </form>
     </div>
