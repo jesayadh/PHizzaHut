@@ -13,4 +13,15 @@ class Pizza extends Model
         'image',
         'slug'
     ];
+
+    public function transactions()
+    {
+        return $this->belongsToMany('App\Models\Transaction','detailtransactions');
+    }
+    
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User','carts');
+    }
+
 }

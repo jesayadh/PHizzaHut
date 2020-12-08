@@ -13,6 +13,12 @@
                   <h2 class="card-title">{{$pizza->name}}</h2>
                   <p class="card-text">{{$pizza->description}}</p>
                   <p class="card-text">Rp. {{$pizza->price}}</p>
+                  <form action="{{route('cart.store',$pizza->id)}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <x-input field="quantity" label="Quantity" type="text"/>
+                  
+                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                  </form>
                 </div>
               </div>
             </div>

@@ -16,13 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 
-        'email', 
-        'password', 
-        'address', 
-        'phone', 
-        'gender', 
-        'user'
+        'username', 'email', 'password', 'address', 'phone', 'gender', 'user'
     ];
 
     /**
@@ -31,8 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -43,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pizzas()
+    {
+        return $this->belongsToMany('App\Models\Pizza','carts')->withPivot('quantity');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction');
+    }
 }

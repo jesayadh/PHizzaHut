@@ -14,11 +14,10 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->integer('userid')->references('id')->on('users')->onDelete("cascade");
-            $table->integer('pizzaid')->references('id')->on('pizzas')->onDelete("cascade");
-            $table->integer('quantity');
-            $table->integer('tprice');
+            $table->bigInteger('id')->unsigned()->autoIncrement();
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete("cascade");
+            $table->integer('totalprice');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('transaction');
     }
 }

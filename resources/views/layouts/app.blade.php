@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container">
-            <a class="navbar-brand text-light" href="../movies" style="font-size: 30px;"><img src="/assets/Logo/pizza.png" alt="PhizzaHut">PHizza Hut</a>
+            <a class="navbar-brand text-light" href="../pizza" style="font-size: 30px;"><img src="/assets/Logo/pizza.png" alt="PhizzaHut">PHizza Hut</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -37,20 +37,20 @@
                         @else
                             @if (Auth::user()->user==1)
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="#">{{ __('View All User Transaction') }}</a>
+                                    <a class="nav-link text-light" href="/transaction">{{ __('View All User Transaction') }}</a>
                                 </li>
                                 <span class="border-left pull-right"></span>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="#">{{ __('View All User') }}</a>
+                                    <a class="nav-link text-light" href="/user">{{ __('View All User') }}</a>
                                 </li>
                                 <span class="border-left pull-right"></span>
                             @else
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="#">{{ __('View Transaction History') }}</a>
+                                    <a class="nav-link text-light" href="/transaction">{{ __('View Transaction History') }}</a>
                                 </li>
                                 <span class="border-left pull-right"></span>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="#">{{ __('View Cart') }}</a>
+                                    <a class="nav-link text-light" href="/cart">{{ __('View Cart') }}</a>
                                 </li>
                                 <span class="border-left pull-right"></span>
                             @endif

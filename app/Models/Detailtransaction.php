@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Detailtransaction extends Model
 {
     protected $fillable = [
-        'user_id',
-        'pizza_id',
-        'quantity',
+        'transaction_id', 
+        'pizza_id', 
+        'quantity'
     ];
 }

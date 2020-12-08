@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
+use App\Models\Cart;
+use App\Models\DetailTransaction;
+use Auth;
+use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +18,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('user','!=','1')->get();
-        return view('pizza.user', compact('users'));
+        $user = Auth::user();
+        if($user->user==1){
+            $user = Transaction::all();
+            return view('pizza.historyA',compact('user'));
+        }
+        else{
+            return view('pizza.history', compact('user'));
+        }
     }
 
     /**
@@ -25,7 +35,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -34,9 +43,26 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$price)
     {
-        //
+        $user = Auth::user();
+        $temp = Cart::where('user_id','=',$user->id)->get();
+        // dd($temp);
+        $transactionid = time() . $user->id;
+        Transaction::create([
+            'id' => $transactionid,
+            'user_id' => $user->id,
+            'totalprice' => $price,
+        ]);
+        foreach ($temp as $dt) {
+            DetailTransaction::create([
+                'transaction_id' => $transactionid,
+                'pizza_id' => $dt->pizza_id,
+                'quantity' => $dt->quantity,
+            ]);
+        }
+        Cart::where('user_id','=',$user->id)->delete();
+        return redirect('/transaction');
     }
 
     /**
@@ -47,7 +73,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::where('id','=', $id)->first();
+        // dd($transaction);
+        return view('pizza.detailT', compact('transaction'));
     }
 
     /**
