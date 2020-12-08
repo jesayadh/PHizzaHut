@@ -13,12 +13,16 @@
                   <h2 class="card-title">{{$pizza->name}}</h2>
                   <p class="card-text">{{$pizza->description}}</p>
                   <p class="card-text">Rp. {{$pizza->price}}</p>
-                  <form action="{{route('cart.store',$pizza->id)}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <x-input field="quantity" label="Quantity" type="text"/>
-                  
-                    <button type="submit" class="btn btn-primary">Add to Cart</button>
-                  </form>
+                  @if (Auth::check())
+                    @if (Auth::user()->user==2)
+                      <form action="{{route('cart.store',$pizza->id)}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <x-input field="quantity" label="Quantity" type="text"/>
+                      
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                      </form>
+                    @endif
+                  @endif
                 </div>
               </div>
             </div>

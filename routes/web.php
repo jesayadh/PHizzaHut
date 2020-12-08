@@ -13,17 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::resource('pizza','PizzaController');
-Route::resource('cart','CartController');
+Route::get('/pizza/search','PizzaController@search');
+Route::get('/','PizzaController@index');
+Route::resource('pizza','PizzaController')->except(['index','show'])->middleware('auth');
+Route::resource('pizza','PizzaController')->only(['index','show']);
+Route::resource('cart','CartController')->middleware('auth');
 Route::post('/cart/{id}', 'CartController@store')->name('cart.store');
-Route::resource('transaction','TransactionController');
+Route::resource('transaction','TransactionController')->middleware('auth');
 Route::post('/transaction/{id}', 'TransactionController@store')->name('transaction.store');
-Route::resource('user','UserController');
-
+Route::resource('user','UserController')->middleware('auth');
 Route::get('/home', 'PizzaController@index')->name('home');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class UserController extends Controller
 {
@@ -14,6 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        if($user==null)
+            return view('auth.login');
+        if($user->user!=1)
+            abort(403);
         $users = User::where('user','!=','1')->get();
         return view('pizza.user', compact('users'));
     }

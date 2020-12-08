@@ -7,7 +7,6 @@ use App\Models\Transaction;
 use App\Models\Cart;
 use App\Models\DetailTransaction;
 use Auth;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -18,12 +17,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        // mengambil data user yang sedang login
         $user = Auth::user();
+        if($user==null)
+            return view('auth.login');
         if($user->user==1){
-            $user = Transaction::all();
+            // mengambil semua data dari table Transaction, khusus untuk admin
+            $user = Transaction::paginate(5);
+            // mengirim data transaction ke halaman historyA
             return view('pizza.historyA',compact('user'));
         }
         else{
+            // mengirim data ke halaman history
             return view('pizza.history', compact('user'));
         }
     }
@@ -45,15 +50,25 @@ class TransactionController extends Controller
      */
     public function store(Request $request,$price)
     {
+        // mengambil data user yang sedang login
         $user = Auth::user();
+        // mengecek data user, karena hanya member/admin yang boleh berkunjung
+        if($user==null)
+            return view('auth.login');
+        // mengecek data user, karena hanya member yang boleh menambah data cart
+        if($user->user!=2)
+            abort(403);
+    	// mengambil data dari table user
         $temp = Cart::where('user_id','=',$user->id)->get();
-        // dd($temp);
+        // membuat id custom untuk id transaction
         $transactionid = time() . $user->id;
+        // memasukan data ke dalam database
         Transaction::create([
             'id' => $transactionid,
             'user_id' => $user->id,
             'totalprice' => $price,
         ]);
+        // memasukan data ke dalam database
         foreach ($temp as $dt) {
             DetailTransaction::create([
                 'transaction_id' => $transactionid,
@@ -61,7 +76,10 @@ class TransactionController extends Controller
                 'quantity' => $dt->quantity,
             ]);
         }
+        // menghapus data yang ada di cart yang sudah masuk ke database transaction
         Cart::where('user_id','=',$user->id)->delete();
+        
+        // berpindah halaman ke halaman transaction
         return redirect('/transaction');
     }
 
@@ -73,8 +91,17 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
+        // mengambil data user yang sedang login
+        $user = Auth::user();
+        // mengecek data user, karena hanya member/admin yang boleh berkunjung
+        if($user==null)
+            return view('auth.login');
+        // mengecek data user, karena hanya member yang boleh menambah data cart
+        if($user->user!=2)
+            abort(403);
+        // mengambil data dari table transaction sesuai id transaction
         $transaction = Transaction::where('id','=', $id)->first();
-        // dd($transaction);
+    	// mengirim data transaction ke halaman detailT
         return view('pizza.detailT', compact('transaction'));
     }
 
