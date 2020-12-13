@@ -137,19 +137,29 @@ class PizzaController extends Controller
             'name' => 'required|max:255|min:3',
             'description' => 'required|min:10',
             'price' => 'required|digits_between:5,6',
-            'image' => 'required|mimes:jpeg,png,jpg',
+            'image' => 'mimes:jpeg,png,jpg',
         ]);
-        // membuat nama custom image
-        $imgName = $request->image->getClientOriginalName() . '-' . time() . '.' . $request->image->extension();
-        // menyimpan image ke folder public->image
-        $request->image->move(public_path('image'), $imgName);
-        // memasukan data ke dalam database
-        Pizza::find($id)->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'image' => $imgName
-        ]);
+        if($request->image!=null){
+            // membuat nama custom image
+            $imgName = $request->image->getClientOriginalName() . '-' . time() . '.' . $request->image->extension();
+            // menyimpan image ke folder public->image
+            $request->image->move(public_path('image'), $imgName);
+            // memasukan data ke dalam database
+            Pizza::find($id)->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'image' => $imgName
+            ]);
+        }
+        else{
+            Pizza::find($id)->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price
+            ]);
+        }
+        
         // berpindah halaman ke halaman pizza
         return redirect('/pizza');
     }

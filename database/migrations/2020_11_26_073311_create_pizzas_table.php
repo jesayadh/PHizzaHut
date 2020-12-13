@@ -21,6 +21,7 @@ class CreatePizzasTable extends Migration
             $table->string('image');
             $table->string('slug');
             $table->timestamps();
+            $table->softDeletes("deleted_at",0);
         });
     }
 

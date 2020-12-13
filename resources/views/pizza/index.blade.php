@@ -18,7 +18,7 @@
       <div class="col mb-4">
         <a href="/pizza/{{$pizza->slug}}">
           <div class="card">
-            <img src="/image/{{$pizza->image}}" class="card-img-top" alt="...">
+            <img src="/image/{{$pizza->image}}" class="card-img-top" alt="{{$pizza->name}}">
             <div class="card-body">
               <h5 class="card-title">{{$pizza->name}}</h5>
               <p class="card-text">{{$pizza->description}}</p>

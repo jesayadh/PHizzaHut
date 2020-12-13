@@ -97,8 +97,8 @@
                                 <input type="radio" name="gender" value="Female"> Female
 
                                 @error('gender')
-                                        <br>
-                                        <strong class="text-danger">{{ $message }}</strong>
+                                    <br>
+                                    <strong class="text-danger">{{ $message }}</strong>
                                 @enderror
                             </div>
                         </div>

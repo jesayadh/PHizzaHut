@@ -14,7 +14,7 @@ class Transaction extends Model
 
     public function pizzas()
     {
-        return $this->belongsToMany('App\Models\Pizza','detailtransactions')->withPivot('quantity');
+        return $this->belongsToMany('App\Models\Pizza','detailtransactions')->withPivot('quantity')->withTrashed();
     }
 
     public function user()

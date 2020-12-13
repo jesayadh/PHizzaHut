@@ -17,7 +17,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-danger">
         <div class="container">
-            <a class="navbar-brand text-light" href="../pizza" style="font-size: 30px;"><img src="/assets/Logo/pizza.png" alt="PhizzaHut">PHizza Hut</a>
+            <a class="navbar-brand text-light" href=" /pizza" style="font-size: 30px;"><img src="/assets/Logo/pizza.png" alt="PhizzaHut">PHizza Hut</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

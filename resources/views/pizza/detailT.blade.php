@@ -7,7 +7,7 @@
             <div class="row no-gutters">
                 @foreach ($transaction->pizzas as $pizza)
                     <div class="col-md-7">
-                        <img src="/image/{{$pizza->image}}" class="card-img" alt="...">
+                        <img src="/image/{{$pizza->image}}" class="card-img" alt="{{$pizza->name}}">
                     </div>
                     <div class="col-md-5">
                         <div class="card-body">

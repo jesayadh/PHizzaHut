@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Cart;
 use App\Models\DetailTransaction;
+use App\Models\Pizza;
 use Auth;
 
 class TransactionController extends Controller
@@ -101,6 +102,9 @@ class TransactionController extends Controller
             abort(403);
         // mengambil data dari table transaction sesuai id transaction
         $transaction = Transaction::where('id','=', $id)->first();
+        // user hanya dapat melihat transaksi yang dilakukan dirinya sendiri
+        if($user->id!=$transaction->user_id)
+            abort(403);
     	// mengirim data transaction ke halaman detailT
         return view('pizza.detailT', compact('transaction'));
     }
