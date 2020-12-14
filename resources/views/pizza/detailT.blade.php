@@ -7,12 +7,12 @@
             <div class="row no-gutters">
                 @foreach ($transaction->pizzas as $pizza)
                     <div class="col-md-7">
-                        <img src="/image/{{$pizza->image}}" class="card-img" alt="{{$pizza->name}}">
+                        <img src="/img/{{$pizza->image}}" class="card-img" alt="{{$pizza->name}}">
                     </div>
                     <div class="col-md-5">
                         <div class="card-body">
                             <h2 class="card-title">{{$pizza->name}}</h2>
-                            <p class="card-text">{{$pizza->price}}</p>
+                            <p class="card-text">Rp. {{$pizza->price}}</p>
                             <p>Quantity:{{$pizza->pivot->quantity}}</p>
                         </div>
                     </div>

@@ -13,14 +13,14 @@
                 ?>
                 <div class="row no-gutters">
                     <div class="col-md-7">
-                        <img src="image/{{$pizza->image}}" class="card-img" alt="...">
+                        <img src="img/{{$pizza->image}}" class="card-img" alt="...">
                     </div>
                     <div class="col-md-5">
                         <div class="card-body">
                             <h2 class="card-title">{{$pizza->name}}</h2>
                             <p class="card-text">Rp. {{$pizza->price}}</p>
                             <p>Quantity : {{$pizza->pivot->quantity}}</p>
-                            <p>Sub-total : {{$pizza->price * $pizza->pivot->quantity}}</p>
+                            <p>Sub-total : Rp. {{$pizza->price * $pizza->pivot->quantity}}</p>
                             <form action="/cart/{{$pizza->id}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')

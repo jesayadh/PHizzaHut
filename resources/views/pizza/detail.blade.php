@@ -6,7 +6,7 @@
         <div class="card mb-3">
             <div class="row no-gutters">
               <div class="col-md-7">
-                <img src="/image/{{$pizza->image}}" class="card-img" alt="{{$pizza->name}}">
+                <img src="/img/{{$pizza->image}}" class="card-img" alt="{{$pizza->name}}">
               </div>
               <div class="col-md-5">
                 <div class="card-body">

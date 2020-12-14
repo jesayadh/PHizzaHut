@@ -17,8 +17,8 @@ class PizzaController extends Controller
 		$search = $request->search;
  
     	// mengambil data dari table pizza sesuai pencarian data
-		$pizzas = DB::table('pizzas')
-		->where('name','like',"%".$search."%")
+		$pizzas = Pizza::
+		where('name','like',"%".$search."%")
 		->paginate(5);
  
     	// mengirim data pizza ke view index
@@ -66,19 +66,19 @@ class PizzaController extends Controller
         $request->validate([
             'name' => 'required|max:255|min:3',
             'description' => 'required|min:10',
-            'price' => 'required|digits_between:5,6',
+            'price' => 'required|numeric|digits_between:5,6',
             'image' => 'required|mimes:jpeg,png,jpg',
         ]);
         // membuat nama custom image
-        $imgName = $request->image->getClientOriginalName() . '-' . time() . '.' . $request->image->extension();
+        $imageName = Str::slug($request->name,'-') . '-' . time() . '.' . $request->image->extension();
         // menyimpan image ke folder public->image
-        $request->image->move(public_path('image'), $imgName);
+        $request->image->move(public_path('img'), $imageName);
         // memasukan data ke dalam database
         Pizza::create([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'image' => $imgName,
+            'image' => $imageName,
             'slug' => Str::slug($request->name,'-')
         ]);
 
@@ -136,14 +136,14 @@ class PizzaController extends Controller
         $request->validate([
             'name' => 'required|max:255|min:3',
             'description' => 'required|min:10',
-            'price' => 'required|digits_between:5,6',
+            'price' => 'required|numeric|digits_between:5,6',
             'image' => 'mimes:jpeg,png,jpg',
         ]);
         if($request->image!=null){
             // membuat nama custom image
-            $imgName = $request->image->getClientOriginalName() . '-' . time() . '.' . $request->image->extension();
+            $imgName = Str::slug($request->name,'-') . '-' . time() . '.' . $request->image->extension();
             // menyimpan image ke folder public->image
-            $request->image->move(public_path('image'), $imgName);
+            $request->image->move(public_path('img'), $imgName);
             // memasukan data ke dalam database
             Pizza::find($id)->update([
                 'name' => $request->name,
@@ -153,6 +153,7 @@ class PizzaController extends Controller
             ]);
         }
         else{
+            // memasukan data yang tanpa gambarnya
             Pizza::find($id)->update([
                 'name' => $request->name,
                 'description' => $request->description,
